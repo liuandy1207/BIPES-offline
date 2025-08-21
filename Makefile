@@ -26,11 +26,10 @@ offline:
 	echo > ui/index_offline.html
 	cat ui/index.html >> ui/index_offline.html
 	for i in ui/toolbox/*.xml ; do \
-		echo "Including file $$i" ; \
-		echo -n "<document style='display: none' id='"OFFLINE_ >> ui/index_offline.html ; \
-		echo -n $$i | sed -e 's/[\/\.]/_/g' -e 's/ui_//g' >> ui/index_offline.html ; \
-		echo  "'>" >> ui/index_offline.html ;\
-		cat $$i | grep -v "<document>" >> ui/index_offline.html ; \
+    	echo "Including file $$i" ; \
+ 		id=$$(echo $$i | sed -e 's/[\/\.]/_/g' -e 's/ui_//g') ; \
+    	echo "<document style='display: none' id='OFFLINE_$${id}'>" >> ui/index_offline.html ; \
+    	grep -v "<document>" $$i >> ui/index_offline.html ; \
 	done
 	echo "<script>" >> ui/index_offline.html
 	echo "OFFLINE_devinfo_devinfo_json = \`" >> ui/index_offline.html
